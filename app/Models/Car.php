@@ -9,4 +9,13 @@ class Car extends Model
 {
     use HasFactory;
     protected $table = 'cars';
+
+    public function create($description, $model, $product_on)
+    {
+        Car::table($this->table)->insert([
+            'description' => $description,
+            'model' => $model,
+            'product_on' => $product_on
+        ]);
+    }
 }
