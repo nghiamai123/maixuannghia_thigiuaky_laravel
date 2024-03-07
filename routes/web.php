@@ -30,3 +30,5 @@ Route::get('/', function () {
 // Route::get('/getCar/{id}', [CarController::class, 'show'])->name('show.car-detail');
 
 Route::resource('cars', CarController::class);
+
+// Route::get('/car-create', [CarController::class, 'create'])->name('car-create');

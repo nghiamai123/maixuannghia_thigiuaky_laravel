@@ -45,9 +45,24 @@
 </head>
 
 <body>
+
     <div class="container mt-4">
         <div class="col-md-12 align-content-center">
             <h1 class="text-center text-danger " id="animation">LIST OF CARS</h1>
+        </div>
+        @if(Session::has('message'))
+        @if(Session::get('message') == "success")
+        <div class="alert alert-success">
+            <span>Add new product successful! </span>
+        </div>
+        @elseif(Session::get('message') == "faild")
+        <div class="alert alert-danger">
+            <span class="arlert-danger">Add new product successful! </span>
+        </div>
+        @endif
+        @endif
+        <div class="col-md-12 align-content-center">
+            <a href="{{route('cars.create')}}" class="btn btn-primary mb-4">Create new</a>
         </div>
         <table class="table table-hover" style="font-size: 15px;">
             <thead class="table-danger">
@@ -68,7 +83,7 @@
                     <td style="width: 25%">{{$car->description}}</td>
                     <td style="width: 20%">{{$car->model}}</td>
                     <td style="width: 15%">{{$car->product_on}}</td>
-                    <td style="width: 15%"><img src="{{'/image/'.$car->image}}" alt="" srcset="" height="80" width="100"></td>
+                    <td style="width: 15%"><img src="{{'/imageS/'.$car->image}}" alt="" srcset="" height="80" width="100"></td>
 
 
                     <td style="width: 20%">
