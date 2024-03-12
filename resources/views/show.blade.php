@@ -25,7 +25,7 @@
                 <div class="col-md-12 mt-4">
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Update</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><a href="{{route('cars.edit')}}"></a></button>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center active">
                             ID : {{$car->id}}
@@ -71,7 +71,6 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-
 
                     </div>
                 </div>
