@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Your Form</title>
-    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <!-- <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script> -->
     <style>
         .form-create {
             display: flex;
@@ -72,9 +72,6 @@
                 </div>
                 <div class="mb-3">
                     <input id="image" type="file" accept="image/*" name="image" onchange="loadFile(event)">
-                    <!-- @error('image')
-                    <span style="color: red;">{{$message}}</span>
-                    @enderror -->
                 </div>
                 <div>
                     <img style="width: 200px; height: 200px; list-style-type: none; border:none" id="output" />
@@ -90,90 +87,24 @@
 
     </div>
     <script>
-        // let file = null;
-        // var loadFile = function(event) {
-        //     for (let i = 0; i <= event.target.files.length - 1; i++) {
-        //         const fsize = event.target.files.item(i).size;
-        //         const filee = Math.round((fsize / 1024));
-        //         // The size of the file. check size of image
-        //         if (filee > 4096) {
-        //             alert("File too Big, please select a file less than 4mb");
-        //         } else {
-        //             var output = document.getElementById('output');
-        //             file = event;
-        //             output.src = URL.createObjectURL(event.target.files[0]);
-        //             output.onload = function() {
-        //                 URL.revokeObjectURL(output.src)
-        //             }
-        //         }
-        //     }
-        // }
-
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     // Lấy ra trường file input và ảnh
-        //     var inputFile = document.getElementById("image");
-        //     var outputImg = document.getElementById("output");
-
-        //     // Kiểm tra xem có giá trị cũ của trường file input không
-        //     var oldImageValue = "{{ old('image') }}";
-
-        //     // Nếu có giá trị cũ, đặt giá trị cho trường file input và hiển thị ảnh
-        //     if (oldImageValue) {
-        //         inputFile.value = null; // Đặt giá trị null để tránh lỗi trong một số trình duyệt
-        //         outputImg.src = oldImageValue;
-        //     }
-
-        //     // Hàm để xử lý sự kiện thay đổi trường file input và hiển thị ảnh
-        //     function loadFile(event) {
-        //         var input = event.target;
-
-        //         // Kiểm tra xem có hình ảnh được chọn không
-        //         if (input.files && input.files[0]) {
-        //             var reader = new FileReader();
-
-        //             reader.onload = function(e) {
-        //                 outputImg.src = e.target.result;
-        //             };
-
-        //             reader.readAsDataURL(input.files[0]);
-        //         }
-        //     }
-
-        //     // Gán sự kiện onchange cho trường file input
-        //     inputFile.addEventListener("change", loadFile);
-        // });
-        document.addEventListener("DOMContentLoaded", function() {
-            // Lấy ra trường file input và ảnh
-            var inputFile = document.getElementById("image");
-            var outputImg = document.getElementById("output");
-
-            // Kiểm tra xem có giá trị cũ của trường file input không
-            var oldImageValue = "{{ old('image') }}";
-
-            // Nếu có giá trị cũ, hiển thị ảnh tương ứng
-            if (oldImageValue) {
-                outputImg.src = oldImageValue;
-            }
-
-            // Hàm để xử lý sự kiện thay đổi trường file input và hiển thị ảnh
-            function loadFile(event) {
-                var input = event.target;
-
-                // Kiểm tra xem có hình ảnh được chọn không
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function(e) {
-                        outputImg.src = e.target.result;
-                    };
-
-                    reader.readAsDataURL(input.files[0]);
+        let file = null;
+        var loadFile = function(event) {
+            for (let i = 0; i <= event.target.files.length - 1; i++) {
+                const fsize = event.target.files.item(i).size;
+                const filee = Math.round((fsize / 1024));
+                // The size of the file. check size of image
+                if (filee > 4096) {
+                    alert("File too Big, please select a file less than 4mb");
+                } else {
+                    var output = document.getElementById('output');
+                    file = event;
+                    output.src = URL.createObjectURL(event.target.files[0]);
+                    output.onload = function() {
+                        URL.revokeObjectURL(output.src)
+                    }
                 }
             }
-
-            // Gán sự kiện onchange cho trường file input
-            inputFile.addEventListener("change", loadFile);
-        });
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

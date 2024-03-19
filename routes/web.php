@@ -21,14 +21,15 @@ Route::get('/', function () {
 
 // Route::get('/allCar', [CarController::class, 'index']);
 
-// Route::prefix('car')->group(function () {
-//     Route::get('/show/{id}', [CarController::class, 'show'])->name('showCardetail.car-detail');
+Route::prefix('car')->group(function () {
+    Route::get('/show/{id}', [CarController::class, 'getEdit'])->name('showCardetail.car-detail');
 
-//     Route::post('edit/{id}', [CarController::class, 'edit'])->name('editCar.car-detail');
-// });
+    Route::get('/getCar/{id}', [CarController::class, 'show'])->name('car-detail');
+
+    Route::post('/edit/{id}', [CarController::class, 'updateCar'])->name('editCar.car-detail');
+    Route::get('/delete/{id}', [CarController::class, 'delete'])->name('delete.car-detail');
+});
 
 // Route::get('/getCar/{id}', [CarController::class, 'show'])->name('show.car-detail');
 
 Route::resource('cars', CarController::class);
-
-// Route::get('/car-create', [CarController::class, 'create'])->name('car-create');

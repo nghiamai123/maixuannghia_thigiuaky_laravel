@@ -61,6 +61,16 @@
         </div>
         @endif
         @endif
+        @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @elseif(session('success'))
+        <div class="alert alert-success">
+            <span>Deleted product successful! </span>
+        </div>
+        @endif
+
         <div class="col-md-12 align-content-center">
             <a href="{{route('cars.create')}}" class="btn btn-primary mb-4">Create new</a>
         </div>
@@ -70,9 +80,9 @@
                     <th scope="col" style="width: 5%">Id</th>
                     <th scope="col" style="width: 25%">Description</th>
                     <th scope="col" style="width: 20%">Model</th>
-                    <th scope="col" style="width: 15%">Produced On</th>
+                    <th scope="col" style="width: 10%">Produced On</th>
                     <th scope="col">Image</th>
-                    <th scope="col" style="width: 15%">Action</th>
+                    <th scope="col" style="width: 20%">Action</th>
                 </tr>
             </thead>
 
@@ -87,8 +97,10 @@
 
 
                     <td style="width: 20%">
-                        <button type="button" class="btn btn-info"><a style="text-decoration: none; color:#000" href="{{action([App\Http\Controllers\CarController::class, 'show'], ['car'=>$car->id])}}">Detail</a></button>
-                        <button type="button" class="btn btn-success"><a style="text-decoration: none; color:#000" href="{{action([App\Http\Controllers\CarController::class, 'show'], ['car'=>$car->id])}}">Update</a></button>
+                        <button type="button" class="btn btn-info"><a style="text-decoration: none; color:#000" href="{{ route('car-detail',['id'=>$car->id]) }}">Detail</a></button>
+                        <button type="button" class="btn btn-success"><a style="text-decoration: none; color:#000" href="{{ route('showCardetail.car-detail',['id'=>$car->id]) }}">Edit</a></button>
+                        <button type="button" class="btn btn-danger"><a style="text-decoration: none; color:#000" href="{{ route('delete.car-detail',['id'=>$car->id]) }}">Delete</a></button>
+                        <!-- <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Update</a> -->
                     </td>
                 </tr>
                 @endforeach
@@ -97,11 +109,43 @@
         </table>
     </div>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Make:</label>
+                            <input type="text" class="form-control" value="{{$car->make}}" name="make">
 
-    <!-- Include Bootstrap JS and Popper.js (if needed) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Model:</label>
+                            <input type="text" class="form-control" value="{{$car->model}}" name="model">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Produced_on :</label>
+                            <input type="text" class="form-control" value="{{$car->produced_on}}" name="produced_on">
+                        </div>
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <button type="submit" class="btn btn-primary">Send message</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Include Bootstrap JS and Popper.js (if needed) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
