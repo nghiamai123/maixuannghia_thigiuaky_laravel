@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Car;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
 
 class CarController extends Controller
 {
@@ -107,19 +108,90 @@ class CarController extends Controller
         }
     }
 
+    public function delete(string $id)
+    {
+        if (!empty($id)) {
+            $car = Car::find($id);
+
+
+            if ($car) {
+                $image_path = public_path("images/{$car->image}");
+
+                if (File::exists($image_path)) {
+                    File::delete($image_path);
+                }
+
+                $car->delete();
+                return redirect()->route('cars.index')->with('success', 'Car deleted successfully');
+            } else {
+                return redirect()->back()->with('error', 'Car not found');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Invalid car ID');
+        }
+    }
+
     public function show(string $id)
     {
         $car = Car::find($id);
         // dd($car);
-        return view('show', compact('car'));
+        return view('car-detail', compact('car'));
     }
-
-
-    public function delete($id)
-    {
-    }
-
     public function getEdit(string $id)
     {
+        $car = Car::find($id);
+        // dd($car);
+        return view('car-update', compact('car'));
+    }
+
+    public function updateCar(Request $request, string $id)
+    {
+        $car = Car::find($id);
+        $msg = 'failed';
+
+        if (!empty($car)) {
+            $validateData = $request->validate([
+                'model' => 'required|min:5',
+                'product_on' => 'required|date',
+                'description' => 'required',
+                'image' => 'file|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ], [
+                'model.required' => 'Trường model là bắt buộc',
+                'model.min' => 'Trường model có độ dài phải lớn hơn',
+                'product_on.required' => 'Trường thời gian là bắt buộc',
+                'product_on.date' => 'Trường thời gian là bắt buộc',
+                'description.required' => 'Trường mô tả là bắt buộc',
+                'image.image' => 'Trường này phải là ảnh',
+                'image.mimes' => 'Trường Kiểu ảnh là kiểu ảnh',
+            ]);
+
+            if ($request->hasFile('image')) {
+                $image_path = public_path("images/{$car->image}");
+
+                if (File::exists($image_path)) {
+                    File::delete($image_path);
+                }
+
+                $image = $request->file('image');
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('images'), $imageName);
+                $car->image = $imageName;
+            }
+
+            $car->model = $validateData['model'];
+            $car->product_on = $validateData['product_on'];
+            $car->description = $validateData['description'];
+            $car->save();
+
+            if ($car) {
+                $msg = "success";
+            }
+
+            Session::flash('message', $msg);
+            return redirect()->back();
+        }
+
+        Session::flash('message', $msg);
+        return redirect()->back();
     }
 }
