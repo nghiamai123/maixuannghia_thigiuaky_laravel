@@ -44,7 +44,9 @@
                     <label for="model">Model : </label>
                     @endif
                     <input type="text" class="form-control" id="floatingInput" name="model" placeholder="name@example.com" value="{{ old('model') }}">
-
+                    @error('model')
+                    <span style="color: red;">{{$message}}</span>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <!-- <label for="floatingPassword">Product on : </label> -->
@@ -54,6 +56,9 @@
                     <label for="model">Product on : </label>
                     @endif
                     <input type="date" class="form-control" id="floatingPassword" name="product_on" placeholder="Password" value="{{ old('product_on') }}">
+                    @error('product_on')
+                    <span style="color: red;">{{$message}}</span>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     @if ($errors->has('description'))
@@ -62,6 +67,9 @@
                     <label for="description">Description : </label>
                     @endif
                     <textarea class="form-control" placeholder="Leave a comment here" name="description" id="floatingTextarea" value="{{ old('description') }}"></textarea>
+                    @error('description')
+                    <span style="color: red;">{{$message}}</span>
+                    @enderror
                 </div>
                 <div>
                     @if ($errors->has('image'))

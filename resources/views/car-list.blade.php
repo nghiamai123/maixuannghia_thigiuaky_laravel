@@ -80,6 +80,7 @@
                     <th scope="col" style="width: 5%">Id</th>
                     <th scope="col" style="width: 25%">Description</th>
                     <th scope="col" style="width: 20%">Model</th>
+                    <th scope="col" style="width: 20%">Mf</th>
                     <th scope="col" style="width: 10%">Produced On</th>
                     <th scope="col">Image</th>
                     <th scope="col" style="width: 20%">Action</th>
@@ -87,19 +88,20 @@
             </thead>
 
             <tbody>
-                @foreach ($cars as $car)
+                @foreach ( $cars as $car )
                 <tr>
-                    <th scope="row" style="width: 5%">{{$car->id}}</th>
-                    <td style="width: 25%">{{$car->description}}</td>
-                    <td style="width: 20%">{{$car->model}}</td>
-                    <td style="width: 15%">{{$car->product_on}}</td>
+                    <th scope="row" style="width: 5%">{{ $car->id }}</th>
+                    <td style="width: 25%">{{ $car->description }}</td>
+                    <td style="width: 20%">{{ $car->model }}</td>
+                    <td style="width: 20%">{{ $car->mf_name }}</td>
+                    <td style="width: 15%">{{ $car->product_on }}</td>
                     <td style="width: 15%"><img src="{{'/imageS/'.$car->image}}" alt="" srcset="" height="80" width="100"></td>
 
 
-                    <td style="width: 20%">
+                    <td style="width: 30%">
                         <button type="button" class="btn btn-info"><a style="text-decoration: none; color:#000" href="{{ route('car-detail',['id'=>$car->id]) }}">Detail</a></button>
                         <button type="button" class="btn btn-success"><a style="text-decoration: none; color:#000" href="{{ route('showCardetail.car-detail',['id'=>$car->id]) }}">Edit</a></button>
-                        <button type="button" class="btn btn-danger"><a style="text-decoration: none; color:#000" href="{{ route('delete.car-detail',['id'=>$car->id]) }}">Delete</a></button>
+                        <button type="button" class="btn btn-danger" onclick="return  alert('Do you want to delete?')"><a style=" text-decoration: none; color:#000" href="{{ route('delete.car-detail',['id'=>$car->id]) }}">Delete</a></button>
                         <!-- <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Update</a> -->
                     </td>
                 </tr>
@@ -109,43 +111,11 @@
         </table>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="post">
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Make:</label>
-                            <input type="text" class="form-control" value="{{$car->make}}" name="make">
 
-                        </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Model:</label>
-                            <input type="text" class="form-control" value="{{$car->model}}" name="model">
-                        </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Produced_on :</label>
-                            <input type="text" class="form-control" value="{{$car->produced_on}}" name="produced_on">
-                        </div>
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                        <button type="submit" class="btn btn-primary">Send message</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-
-                </div>
-            </div>
-        </div>
-
-        <!-- Include Bootstrap JS and Popper.js (if needed) -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+    <!-- Include Bootstrap JS and Popper.js (if needed) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

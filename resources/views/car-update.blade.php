@@ -34,6 +34,7 @@
             </div>
             <div class="col-md-8 mt-4">
                 <form action="{{route('editCar.car-detail', ['id'=>$car->id])}}" method="post" enctype="multipart/form-data">
+                    @csrf
                     <div class="mb-3">
                         <!-- <label for="recipient-name" class="col-form-label">Model:</label> -->
                         @if ($errors->has('model'))
@@ -41,7 +42,7 @@
                         @else
                         <label for="model">Model : </label>
                         @endif
-                        <input type="text" class="form-control" value="{{$car->model}}" name="model">
+                        <input type="text" class="form-control" value="{{ isset($car)? $car->model : old('model') }}" name="model">
                         @error('model')
                         <span style="color: red;">{{$message}}</span>
                         @enderror
@@ -52,14 +53,14 @@
                         @else
                         <label for="description">Description : </label>
                         @endif
-                        <input class="form-control" value="{{$car->description}}" name="description"></input>
+                        <input class="form-control" value="{{ isset($car)? $car->description : old('description') }}" name="description"></input>
                         @error('description')
                         <span style="color: red;">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Produced_on :</label>
-                        <input type="date" class="form-control" value="{{$car->product_on}}" name="product_on">
+                        <input type="date" class="form-control" value="{{ isset($car)? $car->product_on : old('product_on') }}" name="product_on">
                         @error('product_on')
                         <span style="color: red;">{{$message}}</span>
                         @enderror
@@ -75,7 +76,7 @@
                         <span style="color: red;">{{$message}}</span>
                         @enderror
                     </div>
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                    <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}" /> -->
                     <button type="submit" class="btn btn-primary">Save changes</button>
                     <button type="button" class="btn btn-secondary"><a style="text-decoration: none; color:#000" href="{{route('cars.index')}}">Back</a></button>
                 </form>
