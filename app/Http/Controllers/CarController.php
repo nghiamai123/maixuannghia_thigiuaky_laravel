@@ -8,12 +8,14 @@ use App\Models\Car;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class CarController extends Controller
 {
     public function index()
     {
-        $cars = Car::all();
+        $cars = DB::table('cars')->join('mfs', 'cars.mf_id', '=', 'mfs.id')->get();
+        // dd($cars);
         return view('car-list', compact('cars'));
     }
 
