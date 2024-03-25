@@ -14,22 +14,16 @@ use App\Http\Controllers\CarController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/home', function () {
+    return view('layout/homepage');
 });
 
-
-// Route::get('/allCar', [CarController::class, 'index']);
-
-Route::prefix('car')->group(function () {
-    Route::get('/show/{id}', [CarController::class, 'getEdit'])->name('showCardetail.car-detail');
-
-    Route::get('/getCar/{id}', [CarController::class, 'show'])->name('car-detail');
-
-    Route::post('/edit/{id}', [CarController::class, 'updateCar'])->name('editCar.car-detail');
-    Route::get('/delete/{id}', [CarController::class, 'delete'])->name('delete.car-detail');
+Route::get('/products', function()
+{
+return view('blacks/products');
 });
 
-// Route::get('/getCar/{id}', [CarController::class, 'show'])->name('show.car-detail');
-
-Route::resource('cars', CarController::class);
+Route::get('/details', function()
+{
+return view('blacks/details');
+});
